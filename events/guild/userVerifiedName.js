@@ -19,6 +19,7 @@ module.exports = async (client, member) => {
             );
             const embed = logEmbed(member, 'Name Verified')
                 .setColor('#ffa500')
+                .addField('Claimed Name', member.displayName, true)
                 .addField('User', `<@!${member.id}>`, true)
                 .setDescription(
                     `Please react with the corresponding number to assign the user's role:\n\n` +
