@@ -2,7 +2,7 @@
     "name": "lcabot",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "index.ts",
     "scripts": {
         "start": "node index.js"
     },
@@ -16,9 +16,5 @@
         "url": "https://github.com/jacobdrury75/lcabot/issues"
     },
     "homepage": "https://github.com/jacobdrury75/lcabot#readme",
-    "dependencies": {
-        "discord.js": "^12.2.0",
-        "dotenv": "^8.2.0",
-        "mongoose": "^5.9.17"
-    }
+    "dependencies": {}
 }
