@@ -1,5 +1,6 @@
 .vs
 config.json
+Config.ts
 
 # Logs
 logs
