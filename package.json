@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.ts",
     "scripts": {
-        "start": "node index.js"
+        "start": "tsc && node ./dist/Bot.js"
     },
     "repository": {
         "type": "git",
@@ -16,5 +16,10 @@
         "url": "https://github.com/jacobdrury75/lcabot/issues"
     },
     "homepage": "https://github.com/jacobdrury75/lcabot#readme",
-    "dependencies": {}
+    "dependencies": {
+        "@types/node": "^14.14.22",
+        "discord-akairo": "^8.1.0",
+        "discord.js": "github:discordjs/discord.js",
+        "typescript": "^4.1.3"
+    }
 }
