@@ -1,5 +1,7 @@
 import { Command } from 'discord-akairo';
-import { Message, GuildMember, MessageEmbed, ImageSize } from 'discord.js';
+import { GuildMember } from 'discord.js';
+import { Message } from 'discord.js';
+import { guildId } from '../../Config';
 
 export default class Name extends Command {
     public constructor() {
@@ -14,31 +16,33 @@ export default class Name extends Command {
             ratelimit: 3,
             args: [
                 {
-                    id: 'member',
-                    type: 'member',
-                    match: 'rest',
-                    default: (msg: Message) => msg.member,
+                    id: 'firstName',
+                    type: 'string',
                 },
                 {
-                    id: 'size',
-                    type: (_: Message, str: string): null | Number => {
-                        if (str && !isNaN(Number(str)) && [16, 32, 64, 128, 256, 512, 1024, 2048].includes(Number(str))) return Number(str);
-                        return null;
-                    },
-                    match: 'option',
-                    flag: ['-size='], // !avatar @Host#001 -size=512,
-                    default: 2048,
+                    id: 'lastName',
+                    type: 'string',
                 },
             ],
         });
     }
 
-    public exec(message: Message, { member, size }: { member: GuildMember; size: number }): Promise<Message> {
-        return message.util.send(
-            new MessageEmbed()
-                .setTitle(`Avatar | ${member.user.tag}`)
-                .setColor('RANDOM')
-                .setImage(member.user.displayAvatarURL({ size: size as ImageSize, dynamic: true }))
-        );
+    public async exec(message: Message, { firstName, lastName }: { firstName: string; lastName: string }): Promise<Message> {
+        const guildMember: GuildMember = await (message.channel.type !== 'text'
+            ? message.client.guilds.cache.get(guildId).members.fetch(message.author.id)
+            : message.member);
+
+        await guildMember.setNickname(`${firstName} ${lastName}`);
+
+        return message.util.send({
+            embed: {
+                title: 'Request Received!',
+                color: 0xffa500,
+                description:
+                    `Your nickname was successfully set to \`${firstName} ${lastName}\`!\n\n` +
+                    `Please wait for the High Alpha, Beta, or Theta to assign you the proper role to gain access to the server.\n\n` +
+                    `*If you need any help please send a message in the \`un-verified\` channel*`,
+            },
+        });
     }
 }
